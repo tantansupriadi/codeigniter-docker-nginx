@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+    web:
+        container_name: nginx_container
+        image: nginx:latest
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/ci
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - code-network
+    php:
+        container_name: php_container
+        build:
+            context: .
+            dockerfile: ./php/Dockerfile
+                # image: php:fpm
+        volumes:
+            - .:/ci
+        networks:
+            - code-network
+    # composer:
+    #     restart: 'no'
+    #     image: composer
+    #     # command: ["composer","clear-cache"]
+    #     command: bash -c "composer clear-cache && composer dump-autoload && composer install"
+    #     volumes:
+    #       - .:/kelas-web
+    #     depends_on: 
+    #         - php
+
+networks:
+    code-network:
+        driver: bridge
