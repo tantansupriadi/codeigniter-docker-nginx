@@ -20,16 +20,6 @@ services:
             - .:/ci
         networks:
             - code-network
-    # composer:
-    #     restart: 'no'
-    #     image: composer
-    #     # command: ["composer","clear-cache"]
-    #     command: bash -c "composer clear-cache && composer dump-autoload && composer install"
-    #     volumes:
-    #       - .:/kelas-web
-    #     depends_on: 
-    #         - php
-
 networks:
     code-network:
         driver: bridge
